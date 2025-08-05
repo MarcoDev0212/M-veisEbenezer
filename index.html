@@ -234,6 +234,28 @@
             cursor: pointer;
         }
 
+        /* Botão do WhatsApp */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: #25D366;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 999;
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-icon {
+            width: 35px;
+            height: 35px;
+        }
+
         @keyframes zoom {
             from {transform:scale(0)}
             to {transform:scale(1)}
@@ -537,6 +559,10 @@
         <p>Desenvolvido com ❤️ para seu lar</p>
     </footer>
 
+    <!-- Botão flutuante do WhatsApp -->
+    <a href="https://wa.me/5511999999999" class="whatsapp-float" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="whatsapp-icon">
+    </a>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Tab navigation functionality
