@@ -3,264 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Moveis Ebenezer</title>
+    <title>Móveis Ebenerzer</title>
     <style>
+        :root {
+            --primary: #0f0e0e;
+            --secondary: #bb7412;
+            --light: #584848;
+            --dark: #080913;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
+        
         body {
-            background-color: #f5f5f5;
-            color: #333;
+            background-color: lab(87.31% 8.53 -7.46 / 0.219);
+            color: var(--dark);
+            line-height: 1.6;
         }
 
         header {
-            background-color: #FF6B00;
-            color: white;
-            padding: 1rem 0;
-            text-align: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            position: relative;
-        }
-
-        .logo {
-            font-size: 2.5rem;
-            font-weight: 900;
-            margin: 0.5rem 0;
-            letter-spacing: -1px;
-            text-transform: uppercase;
-        }
-
-        .tagline {
-            font-size: 1rem;
-            opacity: 0.9;
-        }
-
-        nav {
-            background-color: white;
+            background-color: #ee540d; /* Usa a cor principal da marca */
+            box-shadow: #444;
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
+        
 
-        .nav-container {
+        nav {
             display: flex;
-            justify-content: center;
-            overflow-x: auto;
-            padding: 0.5rem;
-            -webkit-overflow-scrolling: touch;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+            margin: 0 auto;
+        }
+        
+        @media (min-width: 768px) {
+            nav {
+                flex-direction: row;
+                justify-content: space-between;
+                padding: 1rem 5%;
+                max-width: 1200px;
+            }
         }
 
-        .nav-tab {
-            padding: 1rem 1.5rem;
-            background-color: transparent;
-            border: none;
-            cursor: pointer;
-            font-weight: 700;
-            color: #333;
-            transition: all 0.2s ease;
-            white-space: nowrap;
-            border-bottom: 4px solid transparent;
-            font-size: 0.9rem;
-        }
-
-        .nav-tab.active {
-            color: #FF6B00;
-            border-bottom: 4px solid #FF6B00;
-        }
-
-        .nav-tab:hover {
-            color: #1e3c72;
-        }
-
-        .content-section {
-            display: none;
-            padding: 2rem 1rem;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .content-section.active {
-            display: block;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 2rem;
-            color: #1e3c72;
+        .logo {
             font-size: 1.8rem;
+            font-weight: bold;
+            color: #f5f4f3;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: 500;
+            transition: color 0.3s;
             position: relative;
         }
 
-        .section-title:after {
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--brand-primary);
+        }
+
+        .nav-links a.active::after {
             content: '';
-            display: block;
-            width: 80px;
-            height: 3px;
-            background-color: #1e3c72;
-            margin: 0.5rem auto;
-        }
-
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .product-card {
-            background-color: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .product-image {
+            position: absolute;
+            bottom: -8px;
+            left: 0;
             width: 100%;
-            height: 200px;
-            object-fit: cover;
+            height: 3px;
+            background-color: var(--brand-primary);
         }
 
-        .product-info {
-            padding: 1rem;
-        }
-
-        .product-name {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-            color: #333;
-        }
-
-        .product-price {
-            font-size: 1.3rem;
-            font-weight: 900;
-            color: #FF6B00;
-            margin: 0.8rem 0;
-        }
-
-        .product-description {
-            color: #666;
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
-
-        .contact-info {
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: white;
-            padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .contact-item {
-            margin-bottom: 1rem;
+        .search-bar {
             display: flex;
             align-items: center;
+            position: relative;
         }
 
-        .contact-icon {
-            margin-right: 1rem;
-            color: #1e3c72;
-            font-size: 1.2rem;
-        }
-
-        footer {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 2rem 1rem;
-            margin-top: 3rem;
-            font-size: 0.9rem;
+        .search-bar {
+            margin-top: 1rem;
+            width: 100%;
         }
         
-        /* Modal styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
+        .search-bar input {
+            padding: 0.5rem 1rem;
+            border: 1px solid #ebdada;
+            border-radius: 20px;
+            outline: none;
             width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.9);
-            overflow: auto;
+            transition: width 0.3s;
         }
 
-        .modal-content {
-            margin: auto;
-            display: block;
-            width: 80%;
-            max-width: 700px;
-            animation-name: zoom;
-            animation-duration: 0.3s;
+        @media (min-width: 768px) {
+            .search-bar {
+                margin-top: 0;
+                width: auto;
+            }
+            
+            .search-bar input {
+                width: 200px;
+            }
+            
+            .search-bar input:focus {
+                width: 250px;
+                border-color: var(--primary);
+            }
         }
 
-        .close {
-            position: absolute;
-            top: 15px;
-            right: 35px;
-            color: #f1f1f1;
-            font-size: 40px;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-
-        .close:hover {
-            color: #FF6B00;
+        .search-bar button {
+            background: none;
+            border: none;
             cursor: pointer;
+            position: absolute;
+            right: 10px;
+            color: var(--error-red);
         }
 
-        /* Botão do WhatsApp */
-        .whatsapp-float {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 60px;
-            height: 60px;
-            background-color: #25D366;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            z-index: 999;
-            transition: all 0.3s ease;
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 5%;
         }
 
-        .whatsapp-icon {
-            width: 35px;
-            height: 35px;
+        .section {
+            display: none;
+            animation: fadeIn 0.5s ease;
         }
 
-        .social-icons a {
-            display: inline-block;
-            margin: 0 8px;
-        }
-
-        .social-icons img {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            transition: transform 0.3s ease;
-            border: none; /* Remove a borda para os ícones sociais */
-        }
-
-        .social-icons img:hover {
-            transform: scale(1.2);
-        }
-
-        @keyframes zoom {
-            from {transform:scale(0)}
-            to {transform:scale(1)}
+        .section.active {
+            display: block;
         }
 
         @keyframes fadeIn {
@@ -268,394 +151,850 @@
             to { opacity: 1; }
         }
 
-        @media (max-width: 768px) {
-            .products-grid {
-                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            }
+        .hero {
+            height: 300px;
+            background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('tela.png');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: rgb(255, 255, 255);
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            padding: 0 1rem;
+        }
 
-            .nav-container {
-                justify-content: flex-start;
-                padding: 0.5rem 0.2rem;
-            }
+        .hero h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
 
-            .nav-tab {
-                padding: 0.6rem 0.8rem;
-                font-size: 0.9rem;
+        @media (min-width: 768px) {
+            .hero {
+                height: 500px;
+                background-image: url('tela.png');
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
             }
-
-            .section-title {
-                font-size: 1.5rem;
+            
+            .hero h1 {
+                font-size: 3rem;
             }
         }
 
-        @media (max-width: 480px) {
-            .logo {
-                font-size: 1.5rem;
-            }
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
 
-            .tagline {
-                font-size: 0.9rem;
-            }
+        .tab-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
 
+        .tab-buttons::-webkit-scrollbar {
+            height: 5px;
+        }
+
+        .tab-buttons::-webkit-scrollbar-thumb {
+            background: var(--secondary);
+            border-radius: 10px;
+        }
+
+        .tab-btn {
+            padding: 0.5rem 1rem;
+            background-color: var(--background-light);
+            border: 1px solid var(--border-light);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .tab-btn:hover {
+            background-color: var(--light);
+        }
+
+        .tab-btn.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        @media (min-width: 600px) {
             .products-grid {
-                grid-template-columns: 1fr;
-                gap: 1rem;
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 2rem;
             }
+        }
 
-            .content-section {
-                padding: 1.5rem 0.5rem;
+        .product-card {
+            background-color: rgb(255, 255, 255);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-img {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-info h3 {
+            margin-bottom: 0.5rem;
+            color: #ccc;
+        }
+
+        .product-info p {
+            margin-bottom: 1rem;
+            color: #080208;
+            font-size: 0.9rem;
+        }
+
+        .price {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--dark);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: 8px;
+            max-width: 800px;
+            width: 90%;
+            max-height: 90vh;
+            overflow: auto;
+            padding: 2rem;
+            position: relative;
+            animation: modalFadeIn 0.3s ease;
+            cursor: default;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #fa0707;
+        }
+
+        .modal-body {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .modal-body {
+                flex-direction: row;
             }
+            .modal-img-container {
+                width: 50%;
+            }
+            .modal-text {
+                width: 50%;
+            }
+        }
+
+        .modal-img-container {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        @media (min-width: 768px) {
+            .modal-img-container {
+                height: 400px;
+            }
+        }
+
+        .modal-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.25s;
+            cursor: zoom-in;
+        }
+        
+        .modal-img.zoomed {
+            transform: scale(1.5);
+            cursor: zoom-out;
+        }
+
+        .modal-text h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .modal-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 1rem 0;
+            color: var(--primary);
+        }
+
+        .modal-description {
+            color: #0c0b0b;
+            margin-bottom: 1.5rem;
+        }
+
+        .search-results {
+            display: none;
+            position: absolute;
+            top: 50px;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            z-index: 100;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .search-results.active {
+            display: block;
+        }
+
+        .search-item {
+            padding: 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .search-item:hover {
+            background-color: var(--light);
+        }
+
+        .history-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .history-content {
+                flex-direction: row;
+                align-items: center;
+            }
+            .history-text {
+                width: 60%;
+            }
+            .history-image {
+                width: 40%;
+            }
+        }
+
+        .history-image img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .contact-card {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+        
+        .contact-card svg {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .contact-card h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .contact-card p {
+            margin: 0.25rem 0;
+            color: #1b1b1b;
+        }
+        
+        .contact-card a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .contact-card a:hover {
+            text-decoration: underline;
+        }
+        
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #6d441e;
+        }
+
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 2rem 5%;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .footer-section p, .footer-section a {
+            color: #ccc;
+            line-height: 1.8;
+        }
+
+        .footer-section a {
+            display: block;
+            text-decoration: none;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid #444;
+            font-size: 0.9rem;
+            color: #999;
         }
     </style>
 </head>
 <body>
     <header>
-        <div class="logo">MóveisEbenezer</div>
-        <div class="tagline">Tudo para sua casa com os melhores preços!</div>
+        <nav>
+            <div class="logo"><b>Móveis Ebenerzer</b></div>
+            <div class="nav-links">
+                <a href="#" class="active" data-section="home">Home</a>
+                <a href="#" data-section="products">Produtos</a>
+                <a href="#" data-section="contact">Contato</a>
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="Buscar produtos..." id="search-input">
+                <button id="search-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                    </svg>
+                </button>
+                <div class="search-results" id="search-results"></div>
+            </div>
+        </nav>
     </header>
 
-    <nav>
-        <div class="nav-container">
-            <button class="nav-tab active" data-section="home">Home</button>
-            <button class="nav-tab" data-section="wardrobe">Guarda-Roupas</button>
-            <button class="nav-tab" data-section="sofa">Sofás</button>
-            <button class="nav-tab" data-section="table">Mesas</button>
-            <button class="nav-tab" data-section="other">Outros</button>
-            <button class="nav-tab" data-section="contact">Contato</button>
-        </div>
-    </nav>
-
     <main>
-        <section id="home" class="content-section active">
-            <h2 class="section-title">Bem-vindo à MoveisEbenezer</h2>
-            <p style="text-align: center; margin-bottom: 2rem; max-width: 800px; margin-left: auto; margin-right: auto;">
-                Somos especializados em móveis de alta qualidade para transformar sua casa em um lar aconchegante. 
-                Explore nossas categorias e encontre os móveis perfeitos para cada espaço.
-            </p>
-            <div style="max-width: 900px; margin: 0 auto;">
-                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/3e079797-8450-4b1f-8348-593cbbed7af4.png" alt="Sala de estar moderna com sofá cinza, mesa de centro de madeira e plantas decorativas" style="width: 100%; border-radius: 8px; margin-bottom: 2rem;" />
+        <section id="home" class="section active">
+            <div class="hero">
+                <h1>Bem-vindo à Móveis Ebenerzer</h1>
+                <p>Descubra a elegância e conforto em cada peça de mobiliário especialmente selecionada para seu lar</p>
             </div>
-            <h3 style="text-align: center; margin: 2rem 0 1rem; color: #1e3c72;">Nossos Destaques</h3>
-            <div class="products-grid">
-                <div class="product-card">
-                    <img src="WhatsApp Image 2025-08-06 at 19.29.20.jpeg" alt="Guarda-roupa elegante em madeira maciça com portas de correr espelhadas" class="product-image" />
-                    <div class="product-info">
-                        <h3 class="product-name">✨ CÔMODA 6 GAVETAS - LINDA E FUNCIONAL!</h3>
-                        <div class="product-price">Consulte disponibilidade</div>
-                        <p class="product-description"><b>Chegou essa maravilhosa cômoda com corrediças telescópicas que deslizam com suavidade e durabilidade!<br><br>
-                                                    🔹 Design moderno com estrutura branca e gavetas em madeira clara<br>
-                                                    🔹 6 gavetas espaçosas<br>
-                                                    🔹 Ideal para quarto, closet ou até hall de entrada<br>
-                                                    🔹 Peça nova, com excelente acabamento</b>
-                        </p>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <img src="foto.png" alt="Guarda-roupa elegante em madeira maciça com portas de correr espelhadas" class="product-image" />
-                    <div class="product-info">
-                        <h3 class="product-name">✨ Guarda-Roupa Casal</h3>
-                        <div class="product-price">R$1.999,98</div>
-                        <p class="product-description"><b>Guarda-roupa Casal 6 Portas 6 Gavetas<br><br>
-                                                    🔹 Acabamento moderno Freijó/Off White<br>
-                                                    🔹 Amplo espaço interno<br>
-                                                    🔹 Design elegante com puxadores alongados<br>
-                                                    🔹 Produto novo, direto pra sua casa!</b>
-                        </p>
-                    </div> 
-                </div>
-              </div>
-            </div>
-        </section>
 
-        <section id="wardrobe" class="content-section">
-            <h2 class="section-title">Nossos Guarda-Roupas</h2>
+            <div class="tab-buttons">
+                <button class="tab-btn active" data-category="destaques">Destaques</button>
+            </div>
+
             <div class="products-grid">
-                <div class="product-card">
-                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/01483d2a-8d5e-46e3-9fad-4a3611d451f9.png" alt="Guarda-roupa moderno com portas de correr brancas e detalhes em nobre" class="product-image" />
+                <div class="product-card" data-category="destaques">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/6e64992b-358f-4959-bf8c-65b9870363a0.png" alt="Sofá moderno de 3 lugares em tecido cinza com detalhes em madeira" class="product-img">
                     <div class="product-info">
-                        <h3 class="product-name">Guarda-Roupa Minimalista</h3>
-                        <div class="product-price">R$ 1.899,00</div>
-                        <p class="product-description">Design limpo e moderno com amplo espaço interno e organização inteligente.</p>
+                        <h3>Sofá Elegance</h3>
+                        <p>Sofá de 3 lugares com estrutura em madeira maciça e enchimento de alta densidade</p>
+                        <div class="price">R$ 3.299,00</div>
                     </div>
                 </div>
-                <div class="product-card">
-                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/06bd7553-b2dc-4845-b3ec-0d60935c99be.png" alt="Guarda-roupa de casal com espelho central e detalhes em mogno" class="product-image" />
+
+                <div class="product-card" data-category="destaques">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/a9bf15e2-bd9b-4036-bf4e-fa7e46d7b15a.png" alt="Mesa de jantar retangular em madeira maciça com cadeiras estofadas" class="product-img">
                     <div class="product-info">
-                        <h3 class="product-name">Guarda-Roupa Casal</h3>
-                        <div class="product-price">R$ 2.899,00</div>
-                        <p class="product-description">Amplo espaço para casal com espelho central e divisórias ajustáveis.</p>
+                        <h3>Mesa Family</h3>
+                        <p>Mesa de jantar para 6 pessoas com tampo em madeira de lei e estrutura metálica</p>
+                        <div class="price">R$ 4.599,00</div>
                     </div>
                 </div>
-                <div class="product-card">
-                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/1c5b6918-fd3d-45e5-a5c6-cb5c7bf982eb.png" alt="Guarda-roupa compacto com prateleiras e gavetas embutidas para quartos pequenos" class="product-image" />
+
+                <div class="product-card" data-category="destaques">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/f30e0fb8-26f0-446b-872f-cfbbec915c8b.png" alt="Cama queen size em madeira escura com cabeceira estofada" class="product-img">
                     <div class="product-info">
-                        <h3 class="product-name">Guarda-Roupa Compacto</h3>
-                        <div class="product-price">R$ 1.299,00</div>
-                        <p class="product-description">Solução perfeita para quartos pequenos com armazenamento inteligente.</p>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/687c899a-4b14-4551-a51c-0e15efc06f2d.png" alt="Guarda-roupa infantil colorido com estampas divertidas e puxadores em formato de animais" class="product-image" />
-                    <div class="product-info">
-                        <h3 class="product-name">Guarda-Roupa Infantil</h3>
-                        <div class="product-price">R$ 999,00</div>
-                        <p class="product-description">Design divertido para quartos infantis com acabamento seguro e durável.</p>
+                        <h3>Cama Luxo</h3>
+                        <p>Cama queen size com estrutura em MDF e cabeceira estofada em tecido premium</p>
+                        <div class="price">R$ 2.899,00</div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="sofa" class="content-section">
-            <h2 class="section-title">Nossos Sofás</h2>
-            <div class="products-grid">
-                <div class="product-card">
-                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/20dc76f8-a835-485d-b9f2-d1af6875ad0e.png" alt="Sofá de canto em veludo verde com apoio de braços arredondados" class="product-image" />
+        <section id="products" class="section">
+            <h2 style="margin-bottom: 2rem;">Nossos Produtos</h2>
+            
+            <div class="tab-buttons" id="products-tabs">
+                <button class="tab-btn active" data-category="all">Todos</button>
+                <button class="tab-btn" data-category="living">Sala</button>
+                <button class="tab-btn" data-category="dining">Jantar</button>
+                <button class="tab-btn" data-category="bedroom">Quarto</button>
+                <button class="tab-btn" data-category="office">Escritório</button>
+                <button class="tab-btn" data-category="teste">Teste</button>
+            </div>
+
+            <div class="products-grid" id="products-container">
+                <!-- Sofás -->
+                <div class="product-card" data-category="living" data-name="sofá elegance">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/a2328493-34ec-4078-8734-6b747d401fee.png" alt="Sofá moderno em tecido cinza claro com 3 lugares e apoio para braços em madeira" class="product-img">
                     <div class="product-info">
-                        <h3 class="product-name">Sofá de Canto</h3>
-                        <div class="product-price">R$ 3.299,00</div>
-                        <p class="product-description">Sofá de canto em veludo premium com estrutura reforçada e apoio lombar.</p>
+                        <h3>Sofá Elegance</h3>
+                        <p>Sofá de 3 lugares com estrutura reforçada e tecido resistente</p>
+                        <div class="price">R$ 3.299,00</div>
                     </div>
                 </div>
-                <div class="product-card">
-                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/df89ccb8-d9d3-4697-b123-be57537d970e.png" alt="Sofá retrátil em tecido antialérgico cinza com almofadas decorativas" class="product-image" />
+
+                <div class="product-card" data-category="living" data-name="sofá love">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/79bc937e-0ba2-4fbe-818d-ba3006989a2d.png" alt="Sofá retrátil em veludo azul royal com 2 lugares e sistema de reclinagem" class="product-img">
                     <div class="product-info">
-                        <h3 class="product-name">Sofá Retrátil</h3>
-                        <div class="product-price">R$ 1.999,00</div>
-                        <p class="product-description">Conforto garantido com assento retrátil e tecido fácil de limpar.</p>
+                        <h3>Sofá Love</h3>
+                        <p>Sofá de 2 lugares com sistema retrátil e tecido em veludo</p>
+                        <div class="price">R$ 2.499,00</div>
                     </div>
                 </div>
-                <div class="product-card">
-                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/a52f2f8a-95f1-4a4a-93d6-602304a27cad.png" alt="Sofá de dois lugares em couro legítimo marrom com costura artesanal" class="product-image" />
+
+                <!-- Mesas -->
+                <div class="product-card" data-category="dining" data-name="mesa family">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/85f2503e-1ed9-46b9-acce-3a57502aa7d7.png" alt="Mesa de jantar retangular em madeira clara com capacidade para 6 pessoas " class="product-img">
                     <div class="product-info">
-                        <h3 class="product-name">Sofá de Couro</h3>
-                        <div class="product-price">R$ 2.499,00</div>
-                        <p class="product-description">Elegância em couro legítimo com acabamento artesanal e durabilidade.</p>
+                        <h3>Mesa Family</h3>
+                        <p><b>Mesa de jantar em madeira maciça com tratamento anti-manchas</b></p>
+                        <p>🔹 2 gavetas + 3 nichos</p>
+                        <p>🔹 Cor Freijó – combina com qualquer ambiente</p> 
+                        <p>🔹 Ideal para home office ou estudos</p>
+                        <p>🔹 Estrutura firme e acabamento de qualidade</p>
+                        
+                        <div class="price">R$ 4.599,00</div>
                     </div>
                 </div>
-                <div class="product-card">
-                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/616d86b2-6ec0-4bdd-b6bb-ef530291dcf0.png" alt="Conjunto de sofá e poltronas em linho bege com pés em madeira clara" class="product-image" />
+
+                <div class="product-card" data-category="dining" data-name="mesa moderna">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/6a50000c-1858-4eb3-8c3f-175ceb8da229.png" alt="Mesa de jantar redonda com tampo em vidro temperado e base metálica" class="product-img">
                     <div class="product-info">
-                        <h3 class="product-name">Conjunto Sala</h3>
-                        <div class="product-price">R$ 4.599,00</div>
-                        <p class="product-description">Conjunto completo para sua sala com design harmonioso e conforto premium.</p>
+                        <h3>Mesa Moderna</h3>
+                        <p>Mesa redonda com tampo em vidro temperado de 8mm</p>
+                        <div class="price">R$ 3.899,00</div>
+                    </div>
+                </div>
+
+                <!-- Camas -->
+                <div class="product-card" data-category="bedroom" data-name="cama luxo">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/434bd62d-8183-46e8-b070-314d570133f6.png" alt="Cama queen size em madeira escura com cabeceira estofada em tecido bege" class="product-img">
+                    <div class="product-info">
+                        <h3>Cama Luxo</h3>
+                        <p>Cama queen size com estrutura em MDF e cabeceira estofada</p>
+                        <div class="price">R$ 2.899,00</div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="bedroom" data-name="cama rattan">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/17de35d9-f2b4-4e7e-bc91-c05c5de6db5d.png" alt="Cama king size com estrutura em rattan e cabeceira decorativa" class="product-img">
+                    <div class="product-info">
+                        <h3>Cama Rattan</h3>
+                        <p>Cama king size com estrutura em rattan natural</p>
+                        <div class="price">R$ 3.499,00</div>
+                    </div>
+                </div>
+
+                <!-- Escritório -->
+                <div class="product-card" data-category="office" data-name="escritório classic">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/39429ba0-a9c5-45ae-8bba-1e01480da969.png" alt="Conjunto de escritório em madeira escura com mesa ampla e estante" class="product-img">
+                    <div class="product-info">
+                        <h3>Escritório Classic</h3>
+                        <p>Conjunto completo para escritório em madeira maciça</p>
+                        <div class="price">R$ 5.999,00</div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="office" data-name="cadeira executiva">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/698f479d-7b39-41fd-a921-f6c9146bb617.png" alt="Cadeira de escritório ergonômica com apoio lombar e cabeça" class="product-img">
+                    <div class="product-info">
+                        <h3>Cadeira Executiva</h3>
+                        <p>Cadeira ergonômica com apoio lombar ajustável</p>
+                        <div class="price">R$ 1.299,00</div>
+                    </div>
+                </div>
+
+                <!-- Escritório -->
+                <div class="product-card" data-category="teste" data-name="cadeira teste">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/698f479d-7b39-41fd-a921-f6c9146bb617.png" alt="Markito" class="product-img">
+                    <div class="product-info">
+                        <h3>Markito</h3>
+                        <p>Cadeira ergonômica com apoio lombar ajustável</p>
+                        <div class="price">R$ 1.299,00</div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="table" class="content-section">
-            <h2 class="section-title">Nossas Mesas</h2>
-            <div class="products-grid">
-                <div class="product-card">
-                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/f35ca41c-7038-4c0b-bb8a-b2d01f1128f2.png" alt="Mesa de jantar redonda em vidro temperado com base em metal cromado" class="product-image" />
-                    <div class="product-info">
-                        <h3 class="product-name">Mesa Redonda</h3>
-                        <div class="product-price">R$ 1.399,00</div>
-                        <p class="product-description">Elegante mesa redonda em vidro temperado para até 6 pessoas.</p>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/1d891df3-84b3-4c4e-8280-e93cae9e9641.png" alt="Mesa de centro retangular em madeira de demolição com detalhes rústicos" class="product-image" />
-                    <div class="product-info">
-                        <h3 class="product-name">Mesa de Centro</h3>
-                        <div class="product-price">R$ 899,00</div>
-                        <p class="product-description">Charme rústico com madeira de demolição e acabamento envelhecido.</p>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/162d85fb-b866-44c8-a0d9-71c6828ede49.png" alt="Mesa extensível em carvalho com tampo envelhecido e pernas em ferro" class="product-image" />
-                    <div class="product-info">
-                        <h3 class="product-name">Mesa Extensível</h3>
-                        <div class="product-price">R$ 1.799,00</div>
-                        <p class="product-description">Praticidade e estilo com sistema de extensão suave e tampo em carvalho.</p>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/1febc023-285d-47a3-9ec0-8fd45d4068ef.png" alt="Conjunto de mesa e cadeiras para escritório em estilo industrial" class="product-image" />
-                    <div class="product-info">
-                        <h3 class="product-name">Conjunto Escritório</h3>
-                        <div class="product-price">R$ 2.299,00</div>
-                        <p class="product-description">Conjunto completo para home office com design industrial e ergonomia.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="other" class="content-section">
-            <h2 class="section-title">Outros Móveis</h2>
-            <div class="products-grid">
-                <div class="product-card">
-                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/45f3ba88-8318-4d00-9cab-8c18f5c0a687.png" alt="Estante modular em madeira clara com nichos e gavetas integradas" class="product-image" />
-                    <div class="product-info">
-                        <h3 class="product-name">Estante Modular</h3>
-                        <div class="product-price">R$ 1.199,00</div>
-                        <p class="product-description">Sistema modular que se adapta ao seu espaço e necessidades.</p>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/be96bd7a-997d-4523-9e81-22c8b5c29064.png" alt="Cabeceira de cama king size em couro envelhecido com detalhes em costura" class="product-image" />
-                    <div class="product-info">
-                        <h3 class="product-name">Cabeceira Premium</h3>
-                        <div class="product-price">R$ 1.499,00</div>
-                        <p class="product-description">Luxo e conforto para seu quarto com cabeceira em couro artesanal.</p>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/12dbe8a6-edbf-45f8-8cf3-c3c9c635cd62.png" alt="Banco de corredor estreito com almofada removível e estrutura em madeira de pinho" class="product-image" />
-                    <div class="product-info">
-                        <h3 class="product-name">Banco de Corredor</h3>
-                        <div class="product-price">R$ 499,00</div>
-                        <p class="product-description">Solução prática para corredores e halls com assento acolchoado.</p>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/7c201e57-7940-40bb-a1d9-c6c61cbc8493.png" alt="Armário de cozinha suspenso em branco com portas em vidro fosco e iluminação LED" class="product-image" />
-                    <div class="product-info">
-                        <h3 class="product-name">Armário de Cozinha</h3>
-                        <div class="product-price">R$ 899,00</div>
-                        <p class="product-description">Design moderno com iluminação integrada e espaços inteligentes.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact" class="content-section">
-            <h2 class="section-title">Entre em Contato</h2>
+        <section id="contact" class="section">
+            <h2 style="margin-bottom: 2rem;">Entre em Contato</h2>
+            
             <div class="contact-info">
-                <div class="contact-item">
-                    <span class="contact-icon">📞</span>
-                    <div>
-                        <h3>Telefone</h3>
-                        <p>(XX) XXXX-XXXX</p>
-                    </div>
+                <div class="contact-card">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                    <h3>Endereço</h3>
+                    <p>Av. Paulista, 1000</p>
+                    <p>São Paulo/SP</p>
                 </div>
-                <div class="contact-item">
-                    <span class="contact-icon">✉️</span>
-                    <div>
-                        <h3>Email</h3>
-                        <p>contato@moveisebenezerr.com.br</p>
-                    </div>
+                
+                <div class="contact-card">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                    </svg>
+                    <h3>Telefone</h3>
+                    <p>(11) 1234-5678</p>
                 </div>
-                <div class="contact-item">
-                    <span class="contact-icon">🏠</span>
-                    <div>
-                        <h3>Endereço</h3>
-                        <p>Rua dos Móveis, 123 - Centro<br>Cidade/Estado - CEP: XXXXX-XXX</p>
-                    </div>
+                
+                <div class="contact-card">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                    <h3>Email</h3>
+                    <p>contato@moveiselegantes.com.br</p>
                 </div>
-                <div class="contact-item">
-                    <span class="contact-icon">⏰</span>
-                    <div>
-                        <h3>Horário de Funcionamento</h3>
-                        <p>Segunda a Sexta: 9h às 18h<br>Sábado: 9h às 13h</p>
-                    </div>
-                </div>
+                
+                <div class="contact-card">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                    </svg>
+                    <h3>Instagram</h3>
+                    <a href="https://instagram.com/seuusuario" target="_blank">@</a>
+                </div>          
             </div>
         </section>
     </main>
 
-    <footer>
-        <div class="social-media" style="display: flex; align-items: center; gap: 10px;">
-           <p style="margin: 0;">Siga-nos nas redes sociais:</p>
-           <a href="https://www.instagram.com/moveisebenezerr?igsh=MTAzdndyb2RhMDN1OA==" target="_blank">   
-           <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" width="40" height="40">
-          </a>
-       </div>
+    <!-- Abrir imagens -->
+    <div class="modal" id="product-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-body" id="modal-body">
+                <!-- Conteúdo preenchido dinamicamente -->
+            </div>
+        </div>
+    </div>
 
-        <br>
-        <p><b>© 2025 MóveisEbenezer | Todos os direitos reservados</b></p>
-        <p><b>Email:</b> dev.barbosa02@gmail.com</p>
+    <footer>
+                             
+        <div class="copyright">
+            <p>&copy; 2023 Móveis Elegantes. Todos os direitos reservados.</p>
+        </div>
     </footer>
 
-    <!-- Botão flutuante do WhatsApp -->
-    <a href="https://wa.me/5511999999999" class="whatsapp-float" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="whatsapp-icon">
-    </a>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Tab navigation functionality
-            const tabs = document.querySelectorAll('.nav-tab');
-            const sections = document.querySelectorAll('.content-section');
-
-            tabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    // Remove active class from all tabs and sections
-                    tabs.forEach(t => t.classList.remove('active'));
-                    sections.forEach(s => s.classList.remove('active'));
-
-                    // Add active class to clicked tab and corresponding section
-                    tab.classList.add('active');
-                    const sectionId = tab.getAttribute('data-section');
-                    document.getElementById(sectionId).classList.add('active');
+            // Navegação entre seções
+            const navLinks = document.querySelectorAll('.nav-links a');
+            const sections = document.querySelectorAll('.section');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
                     
-                    // Smooth scroll to top
-                    window.scrollTo({
-                        top: 0,
-                        behavior: 'smooth'
+                    // Remove a classe active de todos os links e seções
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    sections.forEach(s => s.classList.remove('active'));
+                    
+                    // Adiciona a classe active no link clicado
+                    this.classList.add('active');
+                    
+                    // Mostra a seção correspondente
+                    const sectionId = this.getAttribute('data-section');
+                    document.getElementById(sectionId).classList.add('active');
+                });
+            });
+
+            // Filtro de produtos
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const category = this.getAttribute('data-category');
+                    
+                    // Atualiza o botão ativo
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Filtra os produtos
+                    const products = document.querySelectorAll('#products-container .product-card');
+                    products.forEach(product => {
+                        if (category === 'all' || product.getAttribute('data-category') === category) {
+                            product.style.display = 'block';
+                        } else {
+                            product.style.display = 'none';
+                        }
                     });
                 });
             });
 
-            // Simulate loading products from database (in a real scenario, this would be an API call)
-            setTimeout(() => {
-                const productCards = document.querySelectorAll('.product-card');
-                productCards.forEach((card, index) => {
-                    // Add slight delay for animation effect
-                    setTimeout(() => {
-                        card.style.opacity = '1';
-                        card.style.transform = 'translateY(0)';
-                    }, index * 100);
-                });
-            }, 300);
-
-            // Handle product card hover effects on mobile (touch devices)
-            // Add click handlers for product images
-            const productImages = document.querySelectorAll('.product-image');
-            const modal = document.getElementById('imageModal');
-            const modalImg = document.getElementById('modalImage');
-            const closeBtn = document.querySelector('.close');
-
-            productImages.forEach(img => {
-                img.style.cursor = 'pointer';
-                img.addEventListener('click', function() {
-                    modal.style.display = 'block';
-                    modalImg.src = this.src;
-                    modalImg.alt = this.alt;
+            // Modal de produto
+            const productCards = document.querySelectorAll('.product-card');
+            const modal = document.getElementById('product-modal');
+            const modalBody = document.getElementById('modal-body');
+            const closeModal = document.querySelector('.close-modal');
+            
+            productCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const name = this.querySelector('h3').textContent;
+                    const description = this.querySelector('p').textContent;
+                    const price = this.querySelector('.price').textContent;
+                    const imgSrc = this.querySelector('img').getAttribute('src');
+                    const imgAlt = this.querySelector('img').getAttribute('alt');
+                    
+                    modalBody.innerHTML = `
+                        <div class="modal-img-container">
+                            <img src="${imgSrc}" alt="${imgAlt}" class="modal-img" id="zoomable-image">
+                        </div>
+                        <div class="modal-text">
+                            <h2>${name}</h2>
+                            <div class="modal-price">${price}</div>
+                            <p class="modal-description">${description}</p>
+                     </div>
+                    `;
+                    
+                    // Add zoom functionality
+                    const zoomableImage = document.getElementById('zoomable-image');
+                    zoomableImage.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        this.classList.toggle('zoomed');
+                    });
+                    
+                    modal.style.display = 'flex';
                 });
             });
-
-            closeBtn.addEventListener('click', () => {
+            
+            closeModal.addEventListener('click', function() {
                 modal.style.display = 'none';
             });
-
-            window.addEventListener('click', (e) => {
+            
+            window.addEventListener('click', function(e) {
                 if (e.target === modal) {
                     modal.style.display = 'none';
                 }
             });
 
-            if ('ontouchstart' in window) {
-                const productCards = document.querySelectorAll('.product-card');
-                productCards.forEach(card => {
-                    card.addEventListener('touchstart', function() {
-                        this.classList.add('hover-effect');
-                    }, false);
+            // Barra de pesquisa
+            const searchInput = document.getElementById('search-input');
+            const searchBtn = document.getElementById('search-btn');
+            const searchResults = document.getElementById('search-results');
+            
+            // Dados para busca
+            const products = [
+                { name: "Sofá Elegance", category: "living", price: "R$ 3.299,00", img: "https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/1b0c51e0-59ec-4eef-8b51-b59131095a46.png", desc: "Sofá de 3 lugares com estrutura reforçada e tecido resistente" },
+                { name: "Sofá Love", category: "living", price: "R$ 2.499,00", img: "https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/779dad7f-bb6f-4184-950c-efeecba66b7c.png", desc: "Sofá de 2 lugares com sistema retrátil e tecido em veludo" },
+                { name: "Mesa Family", category: "dining", price: "R$ 4.599,00", img: "https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/6c919738-a4e0-4b70-ade7-31231c1ae3ea.png", desc: "Mesa de jantar em madeira maciça com tratamento anti-manchas" },
+                { name: "Mesa Moderna", category: "dining", price: "R$ 3.899,00", img: "https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/3ad39778-116b-4751-a069-bd061c15bdf1.png", desc: "Mesa redonda com tampo em vidro temperado de 8mm" },
+                { name: "Cama Luxo", category: "bedroom", price: "R$ 2.899,00", img: "https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/23b49655-1733-4171-9091-81fe3cb96bd3.png", desc: "Cama queen size com estrutura em MDF e cabeceira estofada" },
+                { name: "Cama Rattan", category: "bedroom", price: "R$ 3.499,00", img: "https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/026ed3ac-ac1a-4245-8840-a3531ef512f1.png", desc: "Cama king size com estrutura em rattan natural" },
+                { name: "Escritório Classic", category: "office", price: "R$ 5.999,00", img: "https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/03920b0d-575f-4ca3-af98-438aae19573c.png", desc: "Conjunto completo para escritório em madeira maciça" },
+                { name: "Cadeira Executiva", category: "office", price: "R$ 1.299,00", img: "https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b4760528-68bd-4695-84c9-493e8bf7f3ba.png", desc: "Cadeira ergonômica com apoio lombar ajustável" },
+                { name: "Markito", category: "teste", price: "R$ 1.299,00", img: "https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b4760528-68bd-4695-84c9-493e8bf7f3ba.png", desc: "Cadeira ergonômica com apoio lombar ajustável" }
+            ];
+            
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                
+                if (searchTerm.length < 2) {
+                    searchResults.style.display = 'none';
+                    return;
+                }
+                
+                const filteredProducts = products.filter(product => 
+                    product.name.toLowerCase().includes(searchTerm) || 
+                    product.desc.toLowerCase().includes(searchTerm)
+                );
+                
+                displaySearchResults(filteredProducts);
+            });
+            
+            searchBtn.addEventListener('click', function() {
+                const searchTerm = searchInput.value.toLowerCase();
+                
+                if (searchTerm.length < 2) {
+                    searchResults.style.display = 'none';
+                    return;
+                }
+                
+                const filteredProducts = products.filter(product => 
+                    product.name.toLowerCase().includes(searchTerm) || 
+                    product.desc.toLowerCase().includes(searchTerm)
+                );
+                
+                displaySearchResults(filteredProducts);
+            });
+            
+            function displaySearchResults(results) {
+                if (results.length === 0) {
+                    searchResults.innerHTML = '<div class="search-item">Nenhum produto encontrado</div>';
+                    searchResults.style.display = 'block';
+                    return;
+                }
+                
+                searchResults.innerHTML = '';
+                
+                results.forEach(product => {
+                    const item = document.createElement('div');
+                    item.className = 'search-item';
+                    item.innerHTML = `
+                        <h4>${product.name}</h4>
+                        <p>${product.price} - ${product.desc}</p>
+                    `;
                     
-                    card.addEventListener('touchend', function() {
-                        setTimeout(() => {
-                            this.classList.remove('hover-effect');
-                        }, 300);
-                    }, false);
+                    item.addEventListener('click', function() {
+                        // Navega para a seção de produtos
+                        document.querySelector('[data-section="products"]').click();
+                        
+                        // Filtra os produtos para mostrar apenas o selecionado
+                        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+                        document.querySelector(`.tab-btn[data-category="${product.category}"]`).classList.add('active');
+                        
+                        const allProducts = document.querySelectorAll('#products-container .product-card');
+                        allProducts.forEach(prod => {
+                            prod.style.display = 'none';
+                        });
+                        
+                        const targetProduct = document.querySelector(`.product-card[data-name="${product.name.toLowerCase()}"]`);
+                        if (targetProduct) {
+                            targetProduct.style.display = 'block';
+                            targetProduct.scrollIntoView({ behavior: 'smooth' });
+                        }
+                        
+                        searchResults.style.display = 'none';
+                        searchInput.value = '';
+                    });
+                    
+                    searchResults.appendChild(item);
                 });
+                
+                searchResults.style.display = 'block';
             }
+            
+            // Esconde os resultados ao clicar fora
+            document.addEventListener('click', function(e) {
+                if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+                    searchResults.style.display = 'none';
+                }
+            });
         });
     </script>
-
-    <!-- Modal for image zoom -->
-    <div id="imageModal" class="modal">
-        <span class="close">&times;</span>
-        <img class="modal-content" id="modalImage">
-    </div>
 </body>
 </html>
-</create_file>
